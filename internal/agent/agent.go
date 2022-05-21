@@ -1,66 +1,55 @@
 package agent
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/shirou/gopsutil/cpu"
-	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/load"
 	"github.com/shirou/gopsutil/mem"
 	"github.com/shirou/gopsutil/net"
 )
 
-func getCpuInfo() {
-	cpuInfos, err := cpu.Info()
-	if err != nil {
-		fmt.Printf("get cpu info failed, err:%v", err)
-	}
-	for _, ci := range cpuInfos {
-		fmt.Println(ci)
-	}
-	//CPU utilization
-	for {
-		percent, _ := cpu.Percent(time.Second, false)
-		fmt.Printf("cpu percent:%v\n", percent)
-	}
+type Agent struct {
 }
 
-func getCpuLoad() {
-	info, _ := load.Avg()
-	fmt.Printf("%v\n", info)
+func (_ Agent) cpuUtilization() ([]float64, error) {
+	return cpu.Percent(time.Second, false)
 }
 
-// mem info
-func getMemInfo() {
-	memInfo, _ := mem.VirtualMemory()
-	fmt.Printf("mem info:%v\n", memInfo)
+func (_ Agent) cpuLoad() (float64, error) {
+	info, err := load.Avg()
+
+	return info.Load1, err
 }
 
-// disk info
-func getDiskInfo() {
-	parts, err := disk.Partitions(true)
-	if err != nil {
-		fmt.Printf("get Partitions failed, err:%v\n", err)
-		return
-	}
-	for _, part := range parts {
-		fmt.Printf("part:%v\n", part.String())
-		diskInfo, _ := disk.Usage(part.Mountpoint)
-		fmt.Printf("disk info:used:%v free:%v\n", diskInfo.UsedPercent, diskInfo.Free)
-	}
+// free memory size
+func (_ Agent) freeMemory() (uint64, error) {
+	memInfo, err := mem.VirtualMemory()
 
-	ioStat, _ := disk.IOCounters()
-	for k, v := range ioStat {
-		fmt.Printf("%v:%v\n", k, v)
-	}
+	return memInfo.Free, err
 }
 
-func getNetInfo() {
-	info, _ := net.IOCounters(true)
-	for index, v := range info {
-		fmt.Printf("%v:%v send:%v recv:%v\n", index, v, v.BytesSent, v.BytesRecv)
+// used memory size
+func (_ Agent) usedMemory() (uint64, error) {
+	memInfo, err := mem.VirtualMemory()
+
+	return memInfo.Used, err
+}
+
+// net info
+func (_ Agent) getNetInfo() (uint64, uint64, error) {
+	var (
+		sent uint64 = 0
+		rec  uint64 = 0
+	)
+
+	info, err := net.IOCounters(true)
+	for _, v := range info {
+		sent += v.BytesSent
+		rec += v.BytesRecv
 	}
+
+	return sent, rec, err
 }
 
 func Do() {
