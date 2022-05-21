@@ -13,8 +13,18 @@ type Util struct {
 }
 
 // cpu utilization
-func (_ Util) cpuUtilization() ([]float64, error) {
-	return cpu.Percent(time.Second, false)
+func (_ Util) cpuUtilization() (float64, error) {
+	var total float64
+
+	cores, err := cpu.Percent(time.Second, false)
+
+	for _, core := range cores {
+		total += core
+	}
+
+	total /= float64(len(cores))
+
+	return total, err
 }
 
 // cpu load
