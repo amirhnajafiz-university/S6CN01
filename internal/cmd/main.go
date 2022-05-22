@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/amirhnajafiz/packet-monitoring/internal/agent"
 	"github.com/amirhnajafiz/packet-monitoring/internal/client"
@@ -21,7 +22,9 @@ func Execute() {
 		fmt.Printf("[%d/%d]Agent started ...\n", i+1, cfg.NumberOfAgents)
 
 		a := agent.Agent{
-			Util: agent.Util{},
+			ID:       int(time.Now().UnixMilli()),
+			BusyTime: 2,
+			Util:     agent.Util{},
 		}
 		a.Start(cfg.Agent)
 	}

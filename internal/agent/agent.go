@@ -23,7 +23,7 @@ func (a Agent) busyJob() {
 
 func (a Agent) createStatus() (*protocol.Protocol, error) {
 	var (
-		p   *protocol.Protocol
+		p   = &protocol.Protocol{}
 		err error
 	)
 
