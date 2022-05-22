@@ -3,7 +3,7 @@ package telemetry
 import "github.com/prometheus/client_golang/prometheus"
 
 const (
-	Namespace = "packet-monitoring"
+	Namespace = "packet_monitoring"
 	Subsystem = "agents"
 )
 

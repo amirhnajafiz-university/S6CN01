@@ -15,7 +15,7 @@ type Client struct {
 func (c Client) Start(cfg Config) {
 	c.Metric = telemetry.NewMetrics()
 
-	telemetry.NewServer(cfg.Telemetry)
+	telemetry.NewServer(cfg.Telemetry).Start()
 
 	addr := cfg.ServerHost + ":" + cfg.ServerPort
 

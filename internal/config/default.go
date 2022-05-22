@@ -16,7 +16,7 @@ func Default() Config {
 		},
 		Client: client.Config{
 			Telemetry: telemetry.Config{
-				Address: "1224",
+				Address: "localhost:1224",
 				Enabled: true,
 			},
 			ServerHost: "localhost",

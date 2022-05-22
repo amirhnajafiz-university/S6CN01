@@ -30,6 +30,9 @@ func NewServer(cfg Config) Server {
 // Start creates and run a metric server for prometheus in new go routine.
 func (s Server) Start() {
 	go func() {
-		_ = http.ListenAndServe(s.address, s.srv)
+		err := http.ListenAndServe(s.address, s.srv)
+		if err != nil {
+			panic(err)
+		}
 	}()
 }
