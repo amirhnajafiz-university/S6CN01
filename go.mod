@@ -5,6 +5,8 @@ go 1.17
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
+	github.com/fatih/structs v1.1.0 // indirect
+	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/knadh/koanf v1.4.1 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
@@ -16,6 +18,9 @@ require (
 	github.com/prometheus/common v0.32.1 // indirect
 	github.com/prometheus/procfs v0.7.3 // indirect
 	github.com/shirou/gopsutil v3.21.11+incompatible // indirect
-	golang.org/x/sys v0.0.0-20220114195835-da31bd327af9 // indirect
+	github.com/tklauser/go-sysconf v0.3.10 // indirect
+	github.com/tklauser/numcpus v0.4.0 // indirect
+	golang.org/x/sys v0.0.0-20220128215802-99c3d69c2c27 // indirect
 	google.golang.org/protobuf v1.26.0 // indirect
+	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
