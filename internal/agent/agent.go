@@ -75,7 +75,21 @@ func (a Agent) Start() {
 
 			b, _ := json.Marshal(p)
 
-			_ = c.Write(b)
+			for {
+				er := c.Write(b)
+				if er != nil {
+					continue
+				}
+
+				ack, er := c.Read()
+				if er != nil {
+					continue
+				}
+
+				if ack == "1" {
+					break
+				}
+			}
 		}
 	}()
 }
