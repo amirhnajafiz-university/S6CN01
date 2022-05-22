@@ -6,18 +6,15 @@ import (
 
 type Socket struct {
 	Connection net.Conn
+	Cfg        Config
 }
-
-const (
-	ServerHost = "localhost"
-	ServerPort = "9988"
-	ServerType = "tcp"
-)
 
 func (s *Socket) Connect() error {
 	var err error
 
-	s.Connection, err = net.Dial(ServerType, ServerHost+":"+ServerPort)
+	addr := s.Cfg.ServerHost + ":" + s.Cfg.ServerPort
+
+	s.Connection, err = net.Dial(s.Cfg.ServerType, addr)
 
 	return err
 }
