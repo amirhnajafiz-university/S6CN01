@@ -1,0 +1,12 @@
+number_of_agents: 5
+agent:
+  host: "127.0.0.1"
+  port: "8080"
+  type: "tcp"
+client:
+  telemetry:
+    address: "1224"
+    enabled: true
+  host: "127.0.0.1"
+  port: "8080"
+  type: "tcp"

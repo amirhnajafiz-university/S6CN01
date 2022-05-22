@@ -12,9 +12,9 @@ import (
 )
 
 type Config struct {
-	NumberOfAgents int
-	Agent          socket.Config
-	Client         client.Config
+	NumberOfAgents int           `koanf:"number_of_agents"`
+	Agent          socket.Config `koanf:"agent"`
+	Client         client.Config `koanf:"client"`
 }
 
 func Load() Config {
