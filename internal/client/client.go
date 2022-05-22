@@ -4,10 +4,15 @@ import (
 	"encoding/json"
 	"net"
 
+	"github.com/amirhnajafiz/packet-monitoring/internal/client/telemetry"
 	"github.com/amirhnajafiz/packet-monitoring/internal/protocol"
 )
 
-func Start(cfg Config) {
+type Client struct {
+	Metric telemetry.Metrics
+}
+
+func (c Client) Start(cfg Config) {
 	addr := cfg.ServerHost + ":" + cfg.ServerPort
 
 	server, err := net.Listen(cfg.ServerType, addr)
@@ -25,11 +30,13 @@ func Start(cfg Config) {
 			panic(er)
 		}
 
-		go processClient(connection)
+		c.Metric.Requests.Add(1)
+
+		go c.processClient(connection)
 	}
 }
 
-func processClient(connection net.Conn) {
+func (c Client) processClient(connection net.Conn) {
 	for {
 		var p protocol.Protocol
 
