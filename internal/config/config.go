@@ -12,8 +12,9 @@ import (
 )
 
 type Config struct {
-	Agent  socket.Config
-	Client client.Config
+	NumberOfAgents int
+	Agent          socket.Config
+	Client         client.Config
 }
 
 func Load() Config {

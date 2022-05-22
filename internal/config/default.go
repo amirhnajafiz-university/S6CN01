@@ -8,6 +8,7 @@ import (
 
 func Default() Config {
 	return Config{
+		NumberOfAgents: 4,
 		Agent: socket.Config{
 			ServerHost: "localhost",
 			ServerPort: "8080",
