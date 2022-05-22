@@ -13,6 +13,10 @@ type Client struct {
 }
 
 func (c Client) Start(cfg Config) {
+	c.Metric = telemetry.NewMetrics()
+
+	telemetry.NewServer(cfg.Telemetry)
+
 	addr := cfg.ServerHost + ":" + cfg.ServerPort
 
 	server, err := net.Listen(cfg.ServerType, addr)
