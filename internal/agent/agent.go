@@ -27,27 +27,27 @@ func (a Agent) createStatus() (*protocol.Protocol, error) {
 		err error
 	)
 
-	p.CPUUtilization, err = a.Util.cpuUtilization()
+	p.CPUUtilization, err = a.Util.CpuUtilization()
 	if err != nil {
 		return p, err
 	}
 
-	p.CPULoad, err = a.Util.cpuLoad()
+	p.CPULoad, err = a.Util.CpuLoad()
 	if err != nil {
 		return p, err
 	}
 
-	p.FreeMemory, err = a.Util.freeMemory()
+	p.FreeMemory, err = a.Util.FreeMemory()
 	if err != nil {
 		return p, err
 	}
 
-	p.UsedMemory, err = a.Util.usedMemory()
+	p.UsedMemory, err = a.Util.UsedMemory()
 	if err != nil {
 		return p, err
 	}
 
-	p.NetByteSend, p.NetByteRec, err = a.Util.getNetInfo()
+	p.NetByteSend, p.NetByteRec, err = a.Util.GetNetInfo()
 	if err != nil {
 		return p, err
 	}

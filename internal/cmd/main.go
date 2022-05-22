@@ -19,7 +19,11 @@ func Execute() {
 	// starting our agents
 	for i := 0; i < cfg.NumberOfAgents; i++ {
 		fmt.Printf("[%d/%d]Agent started ...\n", i+1, cfg.NumberOfAgents)
-		agent.Agent{}.Start(cfg.Agent)
+
+		a := agent.Agent{
+			Util: agent.Util{},
+		}
+		a.Start(cfg.Agent)
 	}
 
 	// busy waiting

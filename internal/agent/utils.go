@@ -12,8 +12,8 @@ import (
 type Util struct {
 }
 
-// cpu utilization
-func (_ Util) cpuUtilization() (float64, error) {
+// CpuUtilization cpu utilization
+func (_ Util) CpuUtilization() (float64, error) {
 	var total float64
 
 	cores, err := cpu.Percent(time.Second, false)
@@ -27,29 +27,29 @@ func (_ Util) cpuUtilization() (float64, error) {
 	return total, err
 }
 
-// cpu load
-func (_ Util) cpuLoad() (float64, error) {
+// CpuLoad cpu load
+func (_ Util) CpuLoad() (float64, error) {
 	info, err := load.Avg()
 
 	return info.Load1, err
 }
 
-// free memory size
-func (_ Util) freeMemory() (uint64, error) {
+// FreeMemory free memory size
+func (_ Util) FreeMemory() (uint64, error) {
 	memInfo, err := mem.VirtualMemory()
 
 	return memInfo.Free, err
 }
 
-// used memory size
-func (_ Util) usedMemory() (uint64, error) {
+// UsedMemory used memory size
+func (_ Util) UsedMemory() (uint64, error) {
 	memInfo, err := mem.VirtualMemory()
 
 	return memInfo.Used, err
 }
 
-// net info
-func (_ Util) getNetInfo() (uint64, uint64, error) {
+// GetNetInfo net info
+func (_ Util) GetNetInfo() (uint64, uint64, error) {
 	var (
 		sent uint64 = 0
 		rec  uint64 = 0
