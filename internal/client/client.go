@@ -57,5 +57,12 @@ func (c Client) processClient(connection net.Conn) {
 		}
 
 		_, err = connection.Write([]byte("1"))
+
+		c.Metric.CPUUtilization.Observe(p.CPUUtilization)
+		c.Metric.CPULoad.Observe(p.CPULoad)
+		c.Metric.FreeMemory.Observe(float64(p.FreeMemory))
+		c.Metric.UsedMemory.Observe(float64(p.UsedMemory))
+		c.Metric.NetByteSend.Observe(float64(p.NetByteSend))
+		c.Metric.NetByteRec.Observe(float64(p.NetByteRec))
 	}
 }
