@@ -8,12 +8,14 @@ import (
 )
 
 type Agent struct {
-	Util Util
+	ID       int
+	BusyTime int
+	Util     Util
 }
 
 func (a Agent) busyJob() {
-	fmt.Println("Agent is working.")
-	time.Sleep(2 * time.Second)
+	fmt.Printf("[%d]Agent is working ...\n", a.ID)
+	time.Sleep(time.Duration(a.BusyTime) * time.Second)
 }
 
 func (a Agent) createStatus() (*protocol.Protocol, error) {
