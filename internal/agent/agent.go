@@ -12,9 +12,9 @@ func New() Agent {
 	}
 }
 
-func (a Agent) CreateStatus() (protocol.Protocol, error) {
+func (a Agent) CreateStatus() (*protocol.Protocol, error) {
 	var (
-		p   protocol.Protocol
+		p   *protocol.Protocol
 		err error
 	)
 
