@@ -1,7 +1,9 @@
 package agent
 
 import (
+	"encoding/json"
 	"fmt"
+	"github.com/amirhnajafiz/packet-monitoring/internal/agent/socket"
 	"time"
 
 	"github.com/amirhnajafiz/packet-monitoring/internal/protocol"
@@ -54,9 +56,26 @@ func (a Agent) createStatus() (*protocol.Protocol, error) {
 
 func (a Agent) Start() {
 	go func() {
+		c, err := makeConnection(socket.Config{
+			ServerHost: "localhost",
+			ServerPort: "8080",
+			ServerType: "tcp",
+		})
+		if err != nil {
+			return
+		}
+
 		for {
 			a.busyJob()
-			fmt.Println(a.createStatus())
+
+			p, e := a.createStatus()
+			if e != nil {
+				continue
+			}
+
+			b, _ := json.Marshal(p)
+
+			_ = c.Write(b)
 		}
 	}()
 }

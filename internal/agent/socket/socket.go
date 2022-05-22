@@ -23,8 +23,8 @@ func (s *Socket) Disconnect() error {
 	return s.Connection.Close()
 }
 
-func (s *Socket) Write(w string) error {
-	_, err := s.Connection.Write([]byte(w))
+func (s *Socket) Write(w []byte) error {
+	_, err := s.Connection.Write(w)
 
 	return err
 }
