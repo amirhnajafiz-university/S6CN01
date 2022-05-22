@@ -1,38 +1,54 @@
 package client
 
 import (
-	"fmt"
+	"encoding/json"
 	"net"
-	"os"
+
+	"github.com/amirhnajafiz/packet-monitoring/internal/protocol"
 )
 
-func Start() {
-	fmt.Println("Server Running...")
-	server, err := net.Listen(SERVER_TYPE, SERVER_HOST+":"+SERVER_PORT)
+func Start(cfg Config) {
+	addr := cfg.ServerHost + ":" + cfg.ServerPort
+
+	server, err := net.Listen(cfg.ServerType, addr)
 	if err != nil {
-		fmt.Println("Error listening:", err.Error())
-		os.Exit(1)
+		panic(err)
 	}
-	defer server.Close()
-	fmt.Println("Listening on " + SERVER_HOST + ":" + SERVER_PORT)
-	fmt.Println("Waiting for client...")
+
+	defer func(server net.Listener) {
+		_ = server.Close()
+	}(server)
+
 	for {
-		connection, err := server.Accept()
-		if err != nil {
-			fmt.Println("Error accepting: ", err.Error())
-			os.Exit(1)
+		connection, er := server.Accept()
+		if er != nil {
+			panic(er)
 		}
-		fmt.Println("client connected")
+
 		go processClient(connection)
 	}
 }
+
 func processClient(connection net.Conn) {
-	buffer := make([]byte, 1024)
-	mLen, err := connection.Read(buffer)
-	if err != nil {
-		fmt.Println("Error reading:", err.Error())
+	for {
+		var p protocol.Protocol
+
+		buffer := make([]byte, 1024)
+
+		mLen, err := connection.Read(buffer)
+		if err != nil {
+			_, err = connection.Write([]byte("0"))
+
+			continue
+		}
+
+		err = json.Unmarshal(buffer[:mLen], &p)
+		if err != nil {
+			_, err = connection.Write([]byte("0"))
+
+			continue
+		}
+
+		_, err = connection.Write([]byte("1"))
 	}
-	fmt.Println("Received: ", string(buffer[:mLen]))
-	_, err = connection.Write([]byte("Thanks! Got your message:" + string(buffer[:mLen])))
-	connection.Close()
 }
