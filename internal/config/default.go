@@ -14,13 +14,13 @@ func Default() Config {
 			ServerType: "tcp",
 		},
 		Client: client.Config{
+			Telemetry: telemetry.Config{
+				Address: "1224",
+				Enabled: true,
+			},
 			ServerHost: "localhost",
 			ServerPort: "8080",
 			ServerType: "tcp",
-		},
-		Telemetry: telemetry.Config{
-			Address: "1224",
-			Enabled: true,
 		},
 	}
 }

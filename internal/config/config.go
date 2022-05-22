@@ -5,7 +5,6 @@ import (
 
 	"github.com/amirhnajafiz/packet-monitoring/internal/agent/socket"
 	"github.com/amirhnajafiz/packet-monitoring/internal/client"
-	"github.com/amirhnajafiz/packet-monitoring/internal/client/telemetry"
 	"github.com/knadh/koanf"
 	"github.com/knadh/koanf/parsers/yaml"
 	"github.com/knadh/koanf/providers/file"
@@ -13,9 +12,8 @@ import (
 )
 
 type Config struct {
-	Agent     socket.Config
-	Client    client.Config
-	Telemetry telemetry.Config
+	Agent  socket.Config
+	Client client.Config
 }
 
 func Load() Config {
