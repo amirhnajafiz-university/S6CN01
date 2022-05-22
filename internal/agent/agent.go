@@ -1,18 +1,22 @@
 package agent
 
-import "github.com/amirhnajafiz/packet-monitoring/internal/protocol"
+import (
+	"fmt"
+	"time"
+
+	"github.com/amirhnajafiz/packet-monitoring/internal/protocol"
+)
 
 type Agent struct {
 	Util Util
 }
 
-func New() Agent {
-	return Agent{
-		Util: Util{},
-	}
+func (a Agent) busyJob() {
+	fmt.Println("Agent is working.")
+	time.Sleep(2 * time.Second)
 }
 
-func (a Agent) CreateStatus() (*protocol.Protocol, error) {
+func (a Agent) createStatus() (*protocol.Protocol, error) {
 	var (
 		p   *protocol.Protocol
 		err error
@@ -48,6 +52,9 @@ func (a Agent) CreateStatus() (*protocol.Protocol, error) {
 
 func (a Agent) Start() {
 	go func() {
-		// TODO
+		for {
+			a.busyJob()
+			fmt.Println(a.createStatus())
+		}
 	}()
 }
