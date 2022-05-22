@@ -3,9 +3,10 @@ package agent
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/amirhnajafiz/packet-monitoring/internal/agent/socket"
+	"net"
 	"time"
 
+	"github.com/amirhnajafiz/packet-monitoring/internal/agent/socket"
 	"github.com/amirhnajafiz/packet-monitoring/internal/protocol"
 )
 
@@ -54,13 +55,9 @@ func (a Agent) createStatus() (*protocol.Protocol, error) {
 	return p, nil
 }
 
-func (a Agent) Start() {
+func (a Agent) Start(cfg socket.Config) {
 	go func() {
-		c, err := makeConnection(socket.Config{
-			ServerHost: "localhost",
-			ServerPort: "8080",
-			ServerType: "tcp",
-		})
+		c, err := makeConnection(cfg)
 		if err != nil {
 			return
 		}
@@ -79,6 +76,10 @@ func (a Agent) Start() {
 				er := c.Write(b)
 				if er != nil {
 					continue
+				}
+
+				if er == net.ErrClosed {
+					c = errorHandling(cfg)
 				}
 
 				ack, er := c.Read()
