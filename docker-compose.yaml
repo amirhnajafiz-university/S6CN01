@@ -1,17 +1,6 @@
 version: '3.9'
 
 services:
-
-  node-app:
-    container_name: node-app
-    build:
-      dockerfile: ./build/package/Dockerfile
-      context: .
-    ports:
-      - "1224:1224"
-    networks:
-      - privatejoe
-
   prometheus:
     container_name: prometheus
     image: prom/prometheus:v2.30.3
@@ -21,11 +10,6 @@ services:
       - ./prometheus:/etc/prometheus
       - prometheus-data:/prometheus
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
-    networks:
-      - privatejoe
 
 volumes:
   prometheus-data: {}
-
-networks:
-  privatejoe: {}

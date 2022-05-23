@@ -2,11 +2,8 @@ global:
   scrape_interval: 30s
   scrape_timeout: 10s
 
-rule_files:
-  - alert.yml
-
 scrape_configs:
-  - job_name: "node-app-monitoring"
+  - job_name: "agents-monitoring"
     metrics_path: /metrics
     static_configs:
-      - targets: ["node-app:1224"]
+      - targets: ["docker.for.mac.localhost:1224"]

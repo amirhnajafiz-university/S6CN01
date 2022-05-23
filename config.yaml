@@ -5,7 +5,7 @@ agent:
   type: "tcp"
 client:
   telemetry:
-    address: "localhost:1224"
+    address: "0.0.0.0:1224"
     enabled: true
   host: "127.0.0.1"
   port: "8080"
