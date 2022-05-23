@@ -9,6 +9,8 @@ services:
       context: .
     ports:
       - "1224:1224"
+    networks:
+      - privatejoe
 
   prometheus:
     container_name: prometheus
@@ -19,7 +21,11 @@ services:
       - ./prometheus:/etc/prometheus
       - prometheus-data:/prometheus
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
-
+    networks:
+      - privatejoe
 
 volumes:
   prometheus-data: {}
+
+networks:
+  privatejoe: {}
