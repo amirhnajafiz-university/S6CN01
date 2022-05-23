@@ -6,7 +6,7 @@ rule_files:
   - alert.yml
 
 scrape_configs:
-  - job_name: services
+  - job_name: packet-monitoring
     metrics_path: /metrics
     static_configs:
-      - targets: ['localhost:1224']
+      - targets: ['host.docker.internal:1224']
