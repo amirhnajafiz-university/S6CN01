@@ -1,10 +1,10 @@
-number_of_agents: 5
-agent:
+number_of_agents: 5  # node app number of agents
+agent:  # agents configs
   host: "127.0.0.1"
   port: "8080"
   type: "tcp"
-client:
-  telemetry:
+client: # client configs
+  telemetry: # telemetry configs
     address: "0.0.0.0:1224"
     enabled: true
   host: "127.0.0.1"
