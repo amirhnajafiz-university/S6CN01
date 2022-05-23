@@ -9,5 +9,4 @@ scrape_configs:
   - job_name: services
     metrics_path: /metrics
     static_configs:
-      - targets:
-          - 'localhost:1224'
+      - targets: ['localhost:1224']
