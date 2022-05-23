@@ -1,6 +1,11 @@
 version: '3.9'
 
 services:
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:6.7.2
+    ports:
+      - "3000:3000"
   prometheus:
     container_name: prometheus
     image: prom/prometheus:v2.30.3
