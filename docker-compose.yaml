@@ -1,11 +1,21 @@
 version: '3.9'
 
 services:
+
+  node-app:
+    container_name: node-app
+    build:
+      dockerfile: ./build/package/Dockerfile
+      context: .
+    ports:
+      - "1224:1224"
+
   grafana:
     container_name: grafana
     image: grafana/grafana:6.7.2
     ports:
       - "3000:3000"
+
   prometheus:
     container_name: prometheus
     image: prom/prometheus:v2.30.3
