@@ -5,7 +5,7 @@ services:
   node-app:
     container_name: packet-monitoring
     build:
-      dockerfile: ./buid/package
+      dockerfile: ./build/package/Dockerfile
       context: .
 
   prometheus:
