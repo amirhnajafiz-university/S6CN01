@@ -6,11 +6,7 @@ rule_files:
   - alert.yml
 
 scrape_configs:
-  - job_name: "prometheus"
-    scrape_interval: 5s
-    static_configs:
-      - targets: ["prometheus:9000"]
-  - job_name: "node-app"
+  - job_name: "node-app-monitoring"
     metrics_path: /metrics
     static_configs:
       - targets: ["node-app:1224"]
