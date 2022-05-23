@@ -3,15 +3,18 @@ version: '3.9'
 services:
 
   node-app:
-    container_name: packet-monitoring
+    container_name: node-app
     build:
       dockerfile: ./build/package/Dockerfile
       context: .
+    ports:
+      - "1224:1224"
 
   prometheus:
+    container_name: prometheus
     image: prom/prometheus:v2.30.3
     ports:
-      - "9000:9090"
+      - "9090:9090"
     volumes:
       - ./prometheus:/etc/prometheus
       - prometheus-data:/prometheus
