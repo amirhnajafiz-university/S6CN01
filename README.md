@@ -1,8 +1,10 @@
-# packet-monitoring
+<h1 align="center">
+  S6CN01
+</h1>
 
-Packet monitoring with Prometheus and Grafana and Golang socket programming.
+<br />
 
-This is my Computer Networks course final project at CEIT/AUT.
+Packet monitoring with Prometheus and Grafana and Golang socket programming. This is my Computer Networks course final project at CEIT/AUT.
 
 ## What is this project?
 In this project, we create some agents that push their system status
